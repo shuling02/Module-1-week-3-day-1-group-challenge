@@ -1,3 +1,14 @@
+var breakfastRecipe = `
+    <h2>Breakfast Recipe</h2>
+    <ol>
+        <li>Prepare the eggs.</li>
+        <li>Heat a pan over medium heat.</li>
+        <li>Cook the eggs.</li>
+        <li>Toast the bread.</li>
+        <li>Serve the eggs and toast on a plate.</li>
+    </ol>
+`;
+
 var lunchRecipe = `
     <h2>Lunch Recipe</h2>
     <ol>
@@ -20,16 +31,39 @@ var dinnerRecipe = `
     </ol>
 `;
 
-function displayRecipe(time) {
+var recipes = [breakfastRecipe, lunchRecipe, dinnerRecipe];
 
-    if (time == "noon") {
-        document.getElementById("recipe").innerHTML = lunchRecipe;
-    }
-    else if (time == "sunset") {
-        document.getElementById("recipe").innerHTML = dinnerRecipe;
-    }
+var hour = new Date().getHours();
+
+var meal;
+var displayHour;
+
+if (hour < 12) {
+    meal = "Breakfast";
+}
+else if (hour < 18) {
+    meal = "Lunch";
+}
+else {
+    meal = "Dinner";
 }
 
-var timeOfDay = "sunset";
+if (hour == 0) {
+    displayHour = 12;
+}
+else if (hour > 12) {
+    displayHour = hour - 12;
+}
+else {
+    displayHour = hour;
+}
 
-displayRecipe(timeOfDay);
+
+document.getElementById("recipe").innerHTML =
+    "<h1>You should cook " + meal + "! It's " + displayHour + " " +
+    (hour >= 12 ? "PM" : "AM") + "</h1>";
+
+
+for (var i = 0; i < recipes.length; i++) {
+    document.getElementById("recipe").innerHTML += recipes[i];
+};
